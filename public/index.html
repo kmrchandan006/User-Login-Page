@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login/Register</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="wrapper">
+        <div class="forms-container">
+            <!-- Login Form -->
+            <form action="/api/login" method="post" class="form" id="loginForm">
+                <h2>Login</h2>
+                <div class="input-group">
+                    <input type="text" name="loginUser" id="loginUser" required>
+                    <label for="loginUser">Username</label>
+                </div>
+                <div class="input-group">
+                    <input type="password" name="password" id="password" required>
+                    <label for="password">Password</label>
+                </div>
+                <input type="button" value="Login" id="loginBtn" class="submit-btn">
+                <button type="button" id="switchToRegister" class="switch-btn">Register</button>
+            </form>
+
+            <!-- Registration Form -->
+            <form action="/api/register" method="post" class="form" id="registerForm" style="display:none;">
+                <h2>Register</h2>
+                <div class="input-group">
+                    <input type="text" name="firstName" id="firstName" required>
+                    <label for="firstName">First Name</label>
+                </div>
+                <div class="input-group">
+                    <input type="text" name="lastName" id="lastName" required>
+                    <label for="lastName">Last Name</label>
+                </div>
+                <div class="input-group">
+                    <input type="text" name="mobile" id="mobile" required>
+                    <label for="mobile">Mobile</label>
+                </div>
+                <div class="input-group">
+                    <input type="email" name="email" id="email" required>
+                    <label for="email">Email</label>
+                </div>
+                <div class="input-group">
+                    <input type="text" name="street" id="street" required>
+                    <label for="street">Street</label>
+                </div>
+                <div class="input-group">
+                    <input type="text" name="city" id="city" required>
+                    <label for="city">City</label>
+                </div>
+                <div class="input-group">
+                    <input type="text" name="state" id="state" required>
+                    <label for="state">State</label>
+                </div>
+                <div class="input-group">
+                    <input type="text" name="country" id="country" required>
+                    <label for="country">Country</label>
+                </div>
+                <div class="input-group">
+                    <input type="text" name="loginUser" id="registerUser" required>
+                    <label for="registerUser">Username</label>
+                </div>
+                <div class="input-group">
+                    <input type="password" name="password" id="registerPassword" required>
+                    <label for="registerPassword">Password</label>
+                </div>
+                <input type="button" value="Register" id="registerBtn" class="submit-btn">
+                <button type="button" id="switchToLogin" class="switch-btn">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // Switch between login and registration forms
+        $('#switchToRegister').click(function() {
+            $('#loginForm').hide();
+            $('#registerForm').show();
+        });
+
+        $('#switchToLogin').click(function() {
+            $('#registerForm').hide();
+            $('#loginForm').show();
+        });
+
+         // AJAX request for login
+$('#loginBtn').click(function() {
+    $.ajax({
+        url: '/api/login',
+        type: 'POST',
+        contentType: 'application/x-www-form-urlencoded',
+        data: $('#loginForm').serialize(),
+        success: function(response) {
+            alert(response.message);
+            if (response.success) {
+                window.location.href = '/display'; // Redirect on successful login
+            }
+        },
+        error: function(xhr) {
+            console.error(xhr.responseText);
+            alert('Login failed: ' + xhr.responseText);
+        }
+    });
+});
+
+// AJAX request for registration
+$('#registerBtn').click(function() {
+    $.ajax({
+        url: '/api/register',  // Ensure this matches your route
+        type: 'POST',
+        contentType: 'application/x-www-form-urlencoded',
+        data: $('#registerForm').serialize(),
+        success: function(response) {
+            alert(response.message);
+            if (response.success) {
+                $('#registerForm').hide();
+                $('#loginForm').show();
+            }
+        },
+        error: function(xhr) {
+            console.error(xhr.responseText);
+            alert('Registration failed: ' + xhr.responseText);
+        }
+    });
+});
+
+    </script>
+</body>
+</html>
