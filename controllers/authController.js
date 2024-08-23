@@ -1,39 +1,66 @@
-const bcrypt = require('bcryptjs');
-const User = require('../models/User');
+const bcrypt = require("bcryptjs");
+const User = require("../models/User");
 
- 
+// Function to validate password
 const validatePassword = (password) => {
   const regex = /^[A-Z]/; // Password must start with a capital letter
   return regex.test(password) && password.length == 6;
 };
 
+// Function to handle login or registration
 exports.loginOrRegister = async (req, res) => {
-  console.log('Request body:', req.body);
-  const { loginUser, password } = req.body;
+  console.log("Request body:", req.body);
+  const { username, password } = req.body;
 
   if (!validatePassword(password)) {
-    return res.send('<script>alert("Password must start with a capital letter and be exactly 6 characters long."); window.location.href="/";</script>');
+    return res.send(
+      '<script>alert("Password must start with a capital letter and be exactly 6 characters long."); window.location.href="/";</script>'
+    );
   }
 
   try {
-    const foundUser = await User.findOne({ username: loginUser });
+    const foundUser = await User.findOne({ username: username });
 
     if (foundUser) {
       const isMatch = await bcrypt.compare(password, foundUser.password);
       if (isMatch) {
-        return res.render('UserTable', { user: foundUser });
+        return res.json({
+          success: true,
+          message: "Login successful",
+          user: foundUser,
+        });
       } else {
-        return res.send('<script>alert("Invalid password."); window.location.href="/";</script>');
+        return res.json({ success: false, message: "Invalid password" });
       }
     } else {
       const hashedPassword = await bcrypt.hash(password, 10);
       const newUser = new User({ ...req.body, password: hashedPassword });
       await newUser.save();
-      console.log('New user saved:', newUser);
-      return res.render('UserTable', { user: newUser });
+      return res.json({
+        success: true,
+        message: "Registration successful",
+        user: newUser,
+      });
     }
   } catch (err) {
-    console.error('Error:', err.message);
-    return res.send('<script>alert("Error connecting to the database."); window.location.href="/";</script>');
+    console.error("Error:", err.message);
+    return res.json({
+      success: false,
+      message: "Error connecting to the database",
+    });
+  }
+};
+
+
+
+
+// Function to get all users
+exports.getAllUsers = async (req, res) => {
+  try {
+    const users = await User.find();
+    res.render('UserTable', { users }); // Render the UserTable view with user data
+  } catch (err) {
+    console.error("Error:", err.message);
+    res.status(500).send("Server Error");
   }
 };

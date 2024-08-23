@@ -1,132 +1,213 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login/Register</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
     <div class="wrapper">
-        <div class="forms-container">
-            <!-- Login Form -->
-            <form action="/api/login" method="post" class="form" id="loginForm">
-                <h2>Login</h2>
-                <div class="input-group">
-                    <input type="text" name="loginUser" id="loginUser" required>
-                    <label for="loginUser">Username</label>
-                </div>
-                <div class="input-group">
-                    <input type="password" name="password" id="password" required>
-                    <label for="password">Password</label>
-                </div>
-                <input type="button" value="Login" id="loginBtn" class="submit-btn">
-                <button type="button" id="switchToRegister" class="switch-btn">Register</button>
-            </form>
+      <div class="forms-container">
+        <!-- Login Form -->
+        <form action="/api/login" method="post" class="form" id="loginForm">
+          <h2>Login</h2>
+          <div class="input-group">
+            <input type="text" name="loginUser" id="loginUser" required />
+            <label for="loginUser">Username</label>
+          </div>
+          <div class="input-group">
+            <input type="password" name="password" id="password" required />
+            <label for="password">Password</label>
+          </div>
+          <input type="button" value="Login" id="loginBtn" class="submit-btn" />
+          <button type="button" id="switchToRegister" class="switch-btn">
+            Register
+          </button>
+        </form>
 
-            <!-- Registration Form -->
-            <form action="/api/register" method="post" class="form" id="registerForm" style="display:none;">
-                <h2>Register</h2>
-                <div class="input-group">
-                    <input type="text" name="firstName" id="firstName" required>
-                    <label for="firstName">First Name</label>
-                </div>
-                <div class="input-group">
-                    <input type="text" name="lastName" id="lastName" required>
-                    <label for="lastName">Last Name</label>
-                </div>
-                <div class="input-group">
-                    <input type="text" name="mobile" id="mobile" required>
-                    <label for="mobile">Mobile</label>
-                </div>
-                <div class="input-group">
-                    <input type="email" name="email" id="email" required>
-                    <label for="email">Email</label>
-                </div>
-                <div class="input-group">
-                    <input type="text" name="street" id="street" required>
-                    <label for="street">Street</label>
-                </div>
-                <div class="input-group">
-                    <input type="text" name="city" id="city" required>
-                    <label for="city">City</label>
-                </div>
-                <div class="input-group">
-                    <input type="text" name="state" id="state" required>
-                    <label for="state">State</label>
-                </div>
-                <div class="input-group">
-                    <input type="text" name="country" id="country" required>
-                    <label for="country">Country</label>
-                </div>
-                <div class="input-group">
-                    <input type="text" name="loginUser" id="registerUser" required>
-                    <label for="registerUser">Username</label>
-                </div>
-                <div class="input-group">
-                    <input type="password" name="password" id="registerPassword" required>
-                    <label for="registerPassword">Password</label>
-                </div>
-                <input type="button" value="Register" id="registerBtn" class="submit-btn">
-                <button type="button" id="switchToLogin" class="switch-btn">Login</button>
-            </form>
-        </div>
+        <!-- Registration Form -->
+        <form
+          action="/api/register"
+          method="post"
+          class="form"
+          id="registerForm"
+          style="display: none"
+        >
+          <h2>Register</h2>
+          <div class="input-group">
+            <input type="text" name="firstName" id="firstName" required />
+            <label for="firstName">First Name</label>
+          </div>
+          <div class="input-group">
+            <input type="text" name="lastName" id="lastName" required />
+            <label for="lastName">Last Name</label>
+          </div>
+          <div class="input-group">
+            <input type="text" name="mobile" id="mobile" required />
+            <label for="mobile">Mobile</label>
+          </div>
+          <div class="input-group">
+            <input type="email" name="email" id="email" required />
+            <label for="email">Email</label>
+          </div>
+          <div class="input-group">
+            <input type="text" name="street" id="street" required />
+            <label for="street">Street</label>
+          </div>
+          <div class="input-group">
+            <input type="text" name="city" id="city" required />
+            <label for="city">City</label>
+          </div>
+          <div class="input-group">
+            <input type="text" name="state" id="state" required />
+            <label for="state">State</label>
+          </div>
+          <div class="input-group">
+            <input type="text" name="country" id="country" required />
+            <label for="country">Country</label>
+          </div>
+          <div class="input-group">
+            <input type="text" name="username" id="registerUser" required />
+            <label for="registerUser">Username</label>
+          </div>
+
+          <div class="input-group">
+            <input
+              type="password"
+              name="password"
+              id="registerPassword"
+              required
+            />
+            <label for="registerPassword">Password</label>
+          </div>
+          <input
+            type="button"
+            value="Register"
+            id="registerBtn"
+            class="submit-btn"
+          />
+          <button type="button" id="switchToLogin" class="switch-btn">
+            Login
+          </button>
+        </form>
+
+        <!-- Button to view users -->
+        <button type="button" id="viewUsersBtn" class="submit-btn">View All Users</button>
+      </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        // Switch between login and registration forms
-        $('#switchToRegister').click(function() {
-            $('#loginForm').hide();
-            $('#registerForm').show();
-        });
+      // Switch between login and registration forms
+      $("#switchToRegister").click(function () {
+        $("#loginForm").hide();
+        $("#registerForm").show();
+      });
 
-        $('#switchToLogin').click(function() {
-            $('#registerForm').hide();
-            $('#loginForm').show();
-        });
+      $("#switchToLogin").click(function () {
+        $("#registerForm").hide();
+        $("#loginForm").show();
+      });
 
-         // AJAX request for login
-$('#loginBtn').click(function() {
-    $.ajax({
-        url: '/api/login',
-        type: 'POST',
-        contentType: 'application/x-www-form-urlencoded',
-        data: $('#loginForm').serialize(),
-        success: function(response) {
+      // AJAX request for login
+      $("#loginBtn").click(function () {
+        $.ajax({
+          url: "/api/login",
+          type: "POST",
+          contentType: "application/x-www-form-urlencoded",
+          data: $("#loginForm").serialize(),
+          success: function (response) {
             alert(response.message);
             if (response.success) {
-                window.location.href = '/display'; // Redirect on successful login
+              window.location.href = "/display"; // Redirect on successful login
             }
-        },
-        error: function(xhr) {
+          },
+          error: function (xhr) {
             console.error(xhr.responseText);
-            alert('Login failed: ' + xhr.responseText);
-        }
-    });
-});
+            alert("Login failed: " + xhr.responseText);
+          },
+        });
+      });
 
-// AJAX request for registration
-$('#registerBtn').click(function() {
-    $.ajax({
-        url: '/api/register',  // Ensure this matches your route
-        type: 'POST',
-        contentType: 'application/x-www-form-urlencoded',
-        data: $('#registerForm').serialize(),
-        success: function(response) {
-            alert(response.message);
+      // AJAX request for registration
+      $("#registerBtn").click(function () {
+        $.ajax({
+          url: "/api/register",
+          type: "POST",
+          contentType: "application/x-www-form-urlencoded",
+          data: $("#registerForm").serialize(),
+          success: function (response) {
+            console.log("printing response in registration--->>>", response);
             if (response.success) {
-                $('#registerForm').hide();
-                $('#loginForm').show();
+              alert(response.message);
+              $("#registerForm").hide();
+              $("#loginForm").show();
+            } else {
+              alert(response.message); // Display the error message
             }
-        },
-        error: function(xhr) {
-            console.error(xhr.responseText);
-            alert('Registration failed: ' + xhr.responseText);
-        }
-    });
-});
+          },
+          error: function (xhr) {
+            alert("An error occurred: " + xhr.responseText);
+          },
+        });
+      });
 
+      // Function to open popup with user data
+      function openUserPopup() {
+        $.ajax({
+          url: '/api/users',
+          type: 'GET',
+          success: function(response) {
+            let userTable = '<table border="1" cellpadding="10" cellspacing="0">' +
+              '<tr>' +
+              '<th>First Name</th>' +
+              '<th>Last Name</th>' +
+              '<th>Mobile</th>' +
+              '<th>Email</th>' +
+              '<th>Street</th>' +
+              '<th>City</th>' +
+              '<th>State</th>' +
+              '<th>Country</th>' +
+              '<th>Username</th>' +
+              '<th>Password (Hashed)</th>' +
+              '</tr>';
+
+            response.users.forEach(user => {
+              userTable += '<tr>' +
+                '<td>' + user.firstName + '</td>' +
+                '<td>' + user.lastName + '</td>' +
+                '<td>' + user.mobile + '</td>' +
+                '<td>' + user.email + '</td>' +
+                '<td>' + user.street + '</td>' +
+                '<td>' + user.city + '</td>' +
+                '<td>' + user.state + '</td>' +
+                '<td>' + user.country + '</td>' +
+                '<td>' + user.username + '</td>' +
+                '<td>' + user.password + '</td>' +
+                '</tr>';
+            });
+
+            userTable += '</table>';
+            
+            // Display popup with user data
+            const popup = window.open('', '', 'width=800,height=600');
+            popup.document.write('<html><head><title>User Data</title></head><body>' +
+              '<h2>User Information</h2>' +
+              userTable +
+              '</body></html>');
+            popup.document.close();
+          },
+          error: function(xhr) {
+            alert("An error occurred: " + xhr.responseText);
+          }
+        });
+      }
+
+      // Add event listener to a button to open user popup
+      $("#viewUsersBtn").click(function () {
+        openUserPopup();
+      });
     </script>
-</body>
+  </body>
 </html>
