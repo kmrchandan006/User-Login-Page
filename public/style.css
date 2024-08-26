@@ -62,9 +62,25 @@ h2 {
     font-size: 0.8rem;
 }
 
-.submit-btn {
-    display: block;
-    margin-left: auto;
+ 
+
+.submit-btn:hover {
+    background: none;
+    border: 1px #ff652f solid;
+    color: #ff652f;
+}
+
+ 
+
+.switch-btn:hover {
+    background: none;
+    border: 1px #ff652f solid;
+    color: #ff652f;
+}
+
+.switch-btn, .submit-btn {
+    display: inline-block; /* Ensures the buttons are treated as inline elements within the container */
+    margin: 10px; /* Adds spacing between the buttons */
     padding-top: 10px;
     border: none;
     outline: none;
@@ -76,10 +92,4 @@ h2 {
     border-radius: 5px;
     cursor: pointer;
     color: #eee;
-}
-
-.submit-btn:hover {
-    background: none;
-    border: 1px #ff652f solid;
-    color: #ff652f;
 }

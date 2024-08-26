@@ -16,7 +16,7 @@
       <th>State</th>
       <th>Country</th>
       <th>Username</th>
-      <th>Password (Hashed)</th>
+      <!-- <th>Password (Hashed)</th> -->
     </tr>
     <% users.forEach(user => { %>
       <tr>
@@ -29,9 +29,10 @@
         <td><%= user.state %></td>
         <td><%= user.country %></td>
         <td><%= user.username %></td>
-        <td><%= user.password %></td>
+        <!-- <td><%= user.password %></td> -->
       </tr>
     <% }) %>
   </table>
+  <a href="/">Go Back to Login</a>
 </body>
 </html>

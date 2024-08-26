@@ -1,16 +1,23 @@
 const bcrypt = require("bcryptjs");
 const User = require("../models/User");
 
-// Function to validate password
+// // Function to validate password
+// const validatePassword = (password) => {
+//   const regex = /^[A-Z]/; // Password must start with a capital letter
+//   return regex.test(password) && password.length == 6;
+// };
+
 const validatePassword = (password) => {
-  const regex = /^[A-Z]/; // Password must start with a capital letter
-  return regex.test(password) && password.length == 6;
+  const regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6}$/;
+  return regex.test(password);
 };
+
+
 
 // Function to handle login or registration
 exports.loginOrRegister = async (req, res) => {
   console.log("Request body:", req.body);
-  const { username, password } = req.body;
+  const { loginUser, password } = req.body;
 
   if (!validatePassword(password)) {
     return res.send(
@@ -19,7 +26,7 @@ exports.loginOrRegister = async (req, res) => {
   }
 
   try {
-    const foundUser = await User.findOne({ username: username });
+    const foundUser = await User.findOne({ username: loginUser });
 
     if (foundUser) {
       const isMatch = await bcrypt.compare(password, foundUser.password);
@@ -33,8 +40,11 @@ exports.loginOrRegister = async (req, res) => {
         return res.json({ success: false, message: "Invalid password" });
       }
     } else {
+
+      // User does not exist, proceed with registration
       const hashedPassword = await bcrypt.hash(password, 10);
       const newUser = new User({ ...req.body, password: hashedPassword });
+
       await newUser.save();
       return res.json({
         success: true,
