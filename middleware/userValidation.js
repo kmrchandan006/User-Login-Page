@@ -1,15 +1,5 @@
 const Joi = require('joi');
-// const {userValidationSchema} = require('../middlewares/userValidation');
-
-
-// const userValidationSchema = (req, res, next) => {
-//     const {firstName, lastName, mobile, email, street, city, country, username, password} = req.body;
-
-   
-
-    
-// }
-
+ 
 const userValidationSchema = Joi.object({
     firstName: Joi.string()
         .min(3)
