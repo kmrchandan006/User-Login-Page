@@ -1,16 +1,11 @@
 const bcrypt = require("bcryptjs");
 const User = require("../models/User");
 
-// // Function to validate password
-// const validatePassword = (password) => {
-//   const regex = /^[A-Z]/; // Password must start with a capital letter
-//   return regex.test(password) && password.length == 6;
-// };
 
-const validatePassword = (password) => {
-  const regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6}$/;
-  return regex.test(password);
-};
+// const validatePassword = (password) => {
+//   const regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6}$/;
+//   return regex.test(password);
+// };
 
 
 
@@ -19,11 +14,12 @@ exports.loginOrRegister = async (req, res) => {
   console.log("Request body:", req.body);
   const { loginUser, password } = req.body;
 
-  if (!validatePassword(password)) {
-    return res.send(
-      '<script>alert("Password must start with a capital letter and be exactly 6 characters long."); window.location.href="/";</script>'
-    );
-  }
+  // if (!validatePassword(password)) {
+  //   return res.json({
+  //     success: false,
+  //     message: "Password must start with a capital letter and be exactly 6 characters long",
+  //   });
+  // }
 
   try {
     const foundUser = await User.findOne({ username: loginUser });
