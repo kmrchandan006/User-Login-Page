@@ -6,6 +6,22 @@
 </head>
 <body>
   <h1>User Table</h1>
+  
+  <!-- Add User Form -->
+  <h2>Add User</h2>
+  <form action="/users/add" method="POST">
+    <!-- <input type="text" name="firstName" placeholder="First Name" required />
+    <input type="text" name="lastName" placeholder="Last Name" required />
+    <input type="text" name="mobile" placeholder="Mobile" required />
+    <input type="email" name="email" placeholder="Email" required />
+    <input type="text" name="street" placeholder="Street" required />
+    <input type="text" name="city" placeholder="City" required />
+    <input type="text" name="state" placeholder="State" required />
+    <input type="text" name="country" placeholder="Country" required />
+    <input type="text" name="username" placeholder="Username" required /> -->
+    <button type="submit">Add User</button>
+  </form>
+  
   <table border="1">
     <tr>
       <th>First Name</th>
@@ -17,7 +33,7 @@
       <th>State</th>
       <th>Country</th>
       <th>Username</th>
-      <!-- <th>Password (Hashed)</th> -->
+      <th>Actions</th>
     </tr>
     <% users.forEach(user => { %>
       <tr>
@@ -30,10 +46,22 @@
         <td><%= user.state %></td>
         <td><%= user.country %></td>
         <td><%= user.username %></td>
-        <!-- <td><%= user.password %></td> -->
+        <td>
+          <!-- Edit User Form -->
+          <form action="/users/edit/<%= user._id %>" method="POST" style="display:inline-block;">
+            
+            <button type="submit">Edit</button>
+          </form>
+
+          <!-- Delete User Form -->
+          <form action="/users/delete/<%= user._id %>" method="POST" style="display:inline-block;">
+            <button type="submit">Delete</button>
+          </form>
+        </td>
       </tr>
     <% }) %>
   </table>
+  
   <a href="/">Go Back to Login</a>
 </body>
 </html>

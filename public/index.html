@@ -132,6 +132,21 @@
     </div>
   </div>
 
+  <form action="/users/add" method="POST">
+    <!-- Input fields for user data -->
+    <button type="submit">Add User</button>
+</form>
+
+<form action="/users/edit/<%= user._id %>" method="POST">
+  <!-- Input fields for user data -->
+  <button type="submit">Edit User</button>
+</form>
+
+<form action="/users/delete/<%= user._id %>" method="POST">
+  <button type="submit">Delete User</button>
+</form>
+
+
   <!-- jQuery -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <!-- External JavaScript file -->
