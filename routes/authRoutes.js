@@ -13,5 +13,4 @@ router.post('/register', joiValidator(userValidationSchema),authController.login
 // Route to fetch all users
 router.get('/users', authController.getAllUsers);
 
- 
 module.exports = router;
